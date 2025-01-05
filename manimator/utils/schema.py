@@ -8,8 +8,8 @@ import logging
 from fastapi import HTTPException
 
 
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
+# logging.basicConfig(level=logging.DEBUG)
+# logger = logging.getLogger(__name__)
 
 
 class ManimProcessor:

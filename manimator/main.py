@@ -3,8 +3,6 @@ from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 import re
 import litellm
-import logging
-import traceback
 import base64
 import requests
 from dotenv import load_dotenv
@@ -15,9 +13,6 @@ from PyPDF2 import PdfReader, PdfWriter
 import io
 
 load_dotenv()
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 few_shot_pdf_bytes = open("few_shot/few_shot_1.pdf", "rb").read()
 few_shot_pdf = base64.b64encode(few_shot_pdf_bytes).decode("utf-8")
@@ -48,7 +43,6 @@ def compress_pdf(content: bytes, compression_level: int = 5) -> str:
         compressed_bytes = output.getvalue()
         return base64.b64encode(compressed_bytes).decode("utf-8")
     except Exception as e:
-        logger.error(f"PDF compression failed: {str(e)}")
         return base64.b64encode(content).decode("utf-8")
 
 
@@ -61,21 +55,86 @@ def generate_animation_response(prompt: str) -> str:
             },
             {
                 "role": "user",
-                "content": f"{prompt}.",
+                "content": f"{prompt}\n\n NOTE!!!: Make sure the objects or text in the generated code are not overlapping at any point in the video. Make sure that each scene is properly cleaned up before transitioning to the next scene.",
             },
         ]
-
-        logger.debug(f"Sending animation request to DeepSeek: {prompt}")
         response = litellm.completion(
             model="deepseek/deepseek-chat", messages=messages, num_retries=2
         )
-        logger.debug(f"Received Manim code from DeepSeek: {response}")
-
         return response.choices[0].message.content
     except Exception as e:
-        logger.error(f"Error generating Manim code: {str(e)}")
-        logger.error(traceback.format_exc())
-        raise
+        raise HTTPException(
+            status_code=500, detail=f"Failed to generate animation response: {str(e)}"
+        )
+
+
+def process_prompt_scene(prompt: str) -> str:
+    messages = [
+        {
+            "role": "system",
+            "content": SCENE_SYSTEM_PROMPT,
+        },
+        {
+            "role": "user",
+            "content": "Fourier Transform",
+        },
+        {
+            "role": "assistant",
+            "content": r"""### *Topic*: Fourier Transform
+*Key Points*:
+- Time domain vs frequency domain
+- Decomposing signals into sine waves: \( f(t) = \sum_{n} A_n \sin(2\pi n t + \phi_n) \)
+- Fourier Transform formula: \( \hat{f}(\xi) = \int_{-\infty}^{\infty} f(t) e^{-2\pi i \xi t} dt \)
+- Applications in signal processing
+*Visual Elements*:
+- Animate a complex signal being decomposed into sine waves.
+- Show the Fourier Transform as a graph in the frequency domain.
+*Style*: Smooth animations with mathematical formulas and graphs.""",
+        },
+        {
+            "role": "user",
+            "content": "Explain Gradient Descent",
+        },
+        {
+            "role": "assistant",
+            "content": r"""### *Topic*: Gradient Descent
+*Key Points*:
+- Loss function: \( L(\theta) = \frac{1}{N} \sum_{i=1}^{N} (y_i - f(x_i; \theta))^2 \)
+- Gradient calculation: \( \nabla L(\theta) = \frac{\partial L}{\partial \theta} \)
+- Update rule: \( \theta_{new} = \theta_{old} - \alpha \nabla L(\theta) \)
+- Convergence to the minimum
+*Visual Elements*:
+- 3D surface plot of the loss function.
+- Animate the gradient descent steps moving toward the minimum.
+*Style*: 3D visualizations with step-by-step explanations.""",
+        },
+        {
+            "role": "user",
+            "content": "How does backpropogation work in neural networks?",
+        },
+        {
+            "role": "assistant",
+            "content": r"""### *Topic*: Neural Networks (Backpropagation)
+*Key Points*:
+- Loss function: \( L(\theta) = \frac{1}{N} \sum_{i=1}^{N} (y_i - f(x_i; \theta))^2 \)
+- Chain rule: \( \frac{\partial L}{\partial f} \frac{\partial f}{\partial \theta} \)
+- Weight updates: \( \theta_{new} = \theta_{old} - \alpha \nabla L(\theta) \)
+*Visual Elements*:
+- Animate the flow of gradients through the network.
+- Show the loss surface and gradient descent steps.
+*Style*: Step-by-step, with clear visualizations of gradients and updates.""",
+        },
+        {
+            "role": "user",
+            "content": prompt,
+        },
+    ]
+    response = litellm.completion(
+        model="sambanova/Meta-Llama-3.3-70B-Instruct",
+        messages=messages,
+        num_retries=2,
+    )
+    return response.choices[0].message.content
 
 
 def process_pdf_with_gemini(
@@ -130,8 +189,6 @@ def process_pdf_with_gemini(
         )
         return response.choices[0].message.content
     except Exception as e:
-        logger.error(f"Error processing PDF with Gemini: {str(e)}")
-        logger.error(traceback.format_exc())
         if retry == False:
             return process_pdf_with_gemini(
                 file_content,
@@ -140,7 +197,7 @@ def process_pdf_with_gemini(
             )
         else:
             raise HTTPException(
-                status_code=500, detail="Failed to process PDF with Gemini"
+                status_code=500, detail=f"Failed to process PDF with Gemini: {str(e)}"
             )
 
 
@@ -151,8 +208,9 @@ def download_arxiv_pdf(url: str) -> bytes:
         response.raise_for_status()
         return response.content
     except Exception as e:
-        logger.error(f"Error downloading arxiv PDF: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to download arxiv PDF")
+        raise HTTPException(
+            status_code=500, detail=f"Failed to download arxiv PDF: {str(e)}"
+        )
 
 
 @app.get("/health-check")
@@ -167,85 +225,14 @@ async def generate_pdf_scene(file: UploadFile = File(...)):
         scene_description = process_pdf_with_gemini(content)
         return {"scene_description": scene_description}
     except Exception as e:
-        logger.error(f"Error processing PDF: {str(e)}")
-        logger.error(traceback.format_exc())
         raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.post("/generate-prompt-scene")
 async def generate_prompt_scene(request: PromptRequest):
     try:
-        messages = [
-            {
-                "role": "system",
-                "content": SCENE_SYSTEM_PROMPT,
-            },
-            {
-                "role": "user",
-                "content": "Fourier Transform",
-            },
-            {
-                "role": "assistant",
-                "content": r"""### *Topic*: Fourier Transform
-*Key Points*:
-- Time domain vs frequency domain
-- Decomposing signals into sine waves: \( f(t) = \sum_{n} A_n \sin(2\pi n t + \phi_n) \)
-- Fourier Transform formula: \( \hat{f}(\xi) = \int_{-\infty}^{\infty} f(t) e^{-2\pi i \xi t} dt \)
-- Applications in signal processing
-*Visual Elements*:
-- Animate a complex signal being decomposed into sine waves.
-- Show the Fourier Transform as a graph in the frequency domain.
-*Style*: Smooth animations with mathematical formulas and graphs.""",
-            },
-            {
-                "role": "user",
-                "content": "Explain Gradient Descent",
-            },
-            {
-                "role": "assistant",
-                "content": r"""### *Topic*: Gradient Descent
-*Key Points*:
-- Loss function: \( L(\theta) = \frac{1}{N} \sum_{i=1}^{N} (y_i - f(x_i; \theta))^2 \)
-- Gradient calculation: \( \nabla L(\theta) = \frac{\partial L}{\partial \theta} \)
-- Update rule: \( \theta_{new} = \theta_{old} - \alpha \nabla L(\theta) \)
-- Convergence to the minimum
-*Visual Elements*:
-- 3D surface plot of the loss function.
-- Animate the gradient descent steps moving toward the minimum.
-*Style*: 3D visualizations with step-by-step explanations.""",
-            },
-            {
-                "role": "user",
-                "content": "How does backpropogation work in neural networks?",
-            },
-            {
-                "role": "assistant",
-                "content": r"""### *Topic*: Neural Networks (Backpropagation)
-*Key Points*:
-- Loss function: \( L(\theta) = \frac{1}{N} \sum_{i=1}^{N} (y_i - f(x_i; \theta))^2 \)
-- Chain rule: \( \frac{\partial L}{\partial f} \frac{\partial f}{\partial \theta} \)
-- Weight updates: \( \theta_{new} = \theta_{old} - \alpha \nabla L(\theta) \)
-*Visual Elements*:
-- Animate the flow of gradients through the network.
-- Show the loss surface and gradient descent steps.
-*Style*: Step-by-step, with clear visualizations of gradients and updates.""",
-            },
-            {
-                "role": "user",
-                "content": request.prompt,
-            },
-        ]
-        logger.debug(f"Sending request to SambaNova: {request.prompt}")
-        response = litellm.completion(
-            model="sambanova/Meta-Llama-3.3-70B-Instruct",
-            messages=messages,
-            num_retries=2,
-        )
-        logger.debug(f"Received scene descriptions from SambaNova: {response}")
-        return response.choices[0].message.content
+        return {"scene_description": process_prompt_scene(request.prompt)}
     except Exception as e:
-        logger.error(f"Error generating scene descriptions: {str(e)}")
-        logger.error(traceback.format_exc())
         raise HTTPException(
             status_code=500, detail=f"Error generating scene descriptions: {str(e)}"
         )
@@ -260,8 +247,6 @@ async def process_arxiv_by_id(arxiv_id: str):
         scene_description = process_pdf_with_gemini(pdf_content)
         return {"scene_description": scene_description}
     except Exception as e:
-        logger.error(f"Error processing arxiv paper ID {arxiv_id}: {str(e)}")
-        logger.error(traceback.format_exc())
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -271,47 +256,26 @@ async def generate_animation(request: PromptRequest):
 
     try:
         with processor.create_temp_dir() as temp_dir:
-            logger.info(f"Processing prompt: {request.prompt}")
-
             response = generate_animation_response(request.prompt)
-            logger.debug(f"RAG response: {response}")
-
             code = processor.extract_code(response)
             if not code:
-                logger.error("No valid Manim code found in response")
                 raise HTTPException(
                     status_code=400, detail="No valid Manim code generated"
                 )
-
-            logger.debug(f"Extracted code: {code}")
-
             class_match = re.search(r"class (\w+)\(Scene\)", code)
             if not class_match:
-                logger.error("No Scene class found in code")
                 raise HTTPException(
                     status_code=400, detail="No Scene class found in code"
                 )
-
             scene_name = class_match.group(1)
-            logger.info(f"Found scene class: {scene_name}")
-
             scene_file = processor.save_code(code, temp_dir)
-            logger.debug(f"Saved code to: {scene_file}")
-
             video_path = processor.render_scene(scene_file, scene_name, temp_dir)
-            logger.debug(f"Render result path: {video_path}")
-
             if not video_path:
-                logger.error("Failed to render animation")
                 raise HTTPException(
                     status_code=500, detail="Failed to render animation"
                 )
-
             return FileResponse(video_path, media_type="video/mp4")
-
     except Exception as e:
-        logger.error(f"Error in generate_animation: {str(e)}")
-        logger.error(traceback.format_exc())
         raise HTTPException(status_code=500, detail=str(e))
 
 
