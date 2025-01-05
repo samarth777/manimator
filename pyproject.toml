@@ -16,6 +16,7 @@ python-multipart = "^0.0.20"
 tenacity = "^9.0.0"
 manim = "^0.18.1"
 pypdf2 = "^3.0.1"
+gradio = "^5.9.1"
 
 
 [build-system]
