@@ -49,12 +49,15 @@ RUN apt-get update \
 
 WORKDIR /app
 
+COPY .env .env
+
 # Copy built packages and application
 COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 COPY --from=builder /usr/local/bin/poetry /usr/local/bin/poetry
 COPY manimator ./manimator
 
 ENV PYTHONPATH=/app/manimator
+ENV $(cat .env | xargs)
 # EXPOSE 8000
 EXPOSE 7860
 ENV GRADIO_SERVER_NAME="0.0.0.0"
