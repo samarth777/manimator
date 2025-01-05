@@ -177,7 +177,7 @@ if __name__ == "__main__":
     scene = NeuralNetworkExplanation()
     scene.render()```
     
-Note: Make sure the objects or text in the generated code are not overlapping at any point in the video."""
+Note: Make sure the objects or text in the generated code are not overlapping at any point in the video. Make sure that each scene is properly cleaned up before transitioning to the next scene."""
 
 
 SCENE_SYSTEM_PROMPT = """# Content Structure System
