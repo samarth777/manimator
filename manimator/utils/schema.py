@@ -3,11 +3,10 @@ import re
 import subprocess
 import tempfile
 from contextlib import contextmanager
-from typing import Optional, List, Dict, Any
-import openai
+from typing import Optional
 import logging
-import traceback
 from fastapi import HTTPException
+
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -68,39 +67,3 @@ class ManimProcessor:
 
         except subprocess.CalledProcessError as e:
             raise HTTPException(status_code=500, detail=f"Render error: {e.stderr}")
-
-
-class RAGSystem:
-    def __init__(self):
-        self.client = openai.OpenAI(
-            api_key=os.getenv("SAMBANOVA_API_KEY"),
-            base_url="https://api.sambanova.ai/v1",
-        )
-
-    def generate_response(self, prompt: str) -> str:
-        try:
-            messages = [
-                {
-                    "role": "system",
-                    "content": "You are a helpful AI assistant specializing in generating Manim visualizations.",
-                },
-                {
-                    "role": "user",
-                    "content": f"Generate precise and error-free Manim code in Python for: {prompt}. Ensure scenes are rendered properly, visually pleasing, with smooth animations and professional quality.",
-                },
-            ]
-
-            logger.debug(f"Sending prompt to SambaNova: {prompt}")
-            response = self.client.chat.completions.create(
-                model="Qwen2.5-Coder-32B-Instruct",
-                messages=messages,
-                temperature=0.1,
-                top_p=0.1,
-            )
-            logger.debug(f"Received response from SambaNova: {response}")
-
-            return response.choices[0].message.content
-        except Exception as e:
-            logger.error(f"Error in generate_response: {str(e)}")
-            logger.error(traceback.format_exc())
-            raise
