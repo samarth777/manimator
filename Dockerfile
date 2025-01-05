@@ -7,17 +7,18 @@ RUN rm -f /etc/apt/apt.conf.d/docker-clean \
     && echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-        gcc \
-        g++ \
-        pkg-config \
-        ffmpeg \
-        libcairo2-dev \
-        libpango1.0-dev \
-        python3-dev \
-        texlive \
-        texlive-latex-extra \
-        make \
-        libpangocairo-1.0-0 \
+    gcc \
+    g++ \
+    pkg-config \
+    ffmpeg \
+    libcairo2-dev \
+    libpango1.0-dev \
+    python3-dev \
+    texlive \
+    texlive-latex-extra \
+    make \
+    libpangocairo-1.0-0 \
+    dvisvgm \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Poetry
@@ -37,12 +38,13 @@ FROM python:3.11-slim
 RUN apt-get update \
     && echo "deb https://deb.debian.org/debian/ stable main" > /etc/apt/sources.list \
     && apt-get install -y --no-install-recommends \
-        ffmpeg \
-        libcairo2 \
-        libpango1.0-0 \
-        libpangocairo-1.0-0 \
-        texlive \
-        texlive-latex-extra \
+    ffmpeg \
+    libcairo2 \
+    libpango1.0-0 \
+    libpangocairo-1.0-0 \
+    texlive \
+    texlive-latex-extra \
+    dvisvgm \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -52,7 +54,10 @@ COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/pytho
 COPY --from=builder /usr/local/bin/poetry /usr/local/bin/poetry
 COPY manimator ./manimator
 
-ENV PYTHONPATH=/app
-EXPOSE 8000
+ENV PYTHONPATH=/app/manimator
+# EXPOSE 8000
+EXPOSE 7860
+ENV GRADIO_SERVER_NAME="0.0.0.0"
 
-CMD ["poetry", "run", "uvicorn", "manimator.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# CMD ["python", "-m", "uvicorn", "manimator.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "manimator/gradio_app.py"]

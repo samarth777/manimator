@@ -43,6 +43,8 @@ class ManimProcessor:
         self, scene_file: str, scene_name: str, temp_dir: str
     ) -> Optional[str]:
         cmd = [
+            "python",
+            "-m",
             "manim",
             "-pql",
             "--media_dir",

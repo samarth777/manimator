@@ -14,7 +14,7 @@ import io
 
 load_dotenv()
 
-few_shot_pdf_bytes = open("few_shot/few_shot_1.pdf", "rb").read()
+few_shot_pdf_bytes = open("./manimator/few_shot/few_shot_1.pdf", "rb").read()
 few_shot_pdf = base64.b64encode(few_shot_pdf_bytes).decode("utf-8")
 
 app = FastAPI()

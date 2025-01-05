@@ -153,21 +153,27 @@ with gr.Blocks(title="manimator") as demo:
 
             def show_sample(example):
                 if example == "What is a CNN?":
-                    return "./few_shot/CNNExplanation.mp4", "Output: Example Output 1"
+                    return (
+                        "./manimator/few_shot/CNNExplanation.mp4",
+                        "Output: Example Output 1",
+                    )
                 elif example == "BitNet Paper":
-                    return "./few_shot/BitNet.mp4", "Output: Example Output 2"
+                    return "./manimator/few_shot/BitNet.mp4", "Output: Example Output 2"
                 elif example == "Explain Fourier Transform":
                     return (
-                        ".few_shot/FourierTransformExplanation.mp4",
+                        "./manimator/few_shot/FourierTransformExplanation.mp4",
                         "Output: Example Output 3",
                     )
                 elif example == "How does backpropagation work in Neural Networks?":
                     return (
-                        ".few_shot/NeuralNetworksBackPropagationExample.mp4",
+                        "./manimator/few_shot/NeuralNetworksBackPropagationExample.mp4",
                         "Output: Example Output 4",
                     )
                 elif example == "What is SVM?":
-                    return "./few_shot/SVMExplanation.mp4", "Output: Example Output 5"
+                    return (
+                        "./manimator/few_shot/SVMExplanation.mp4",
+                        "Output: Example Output 5",
+                    )
                 return None, ""
 
             sample_select.change(
