@@ -88,8 +88,6 @@ class ManimProcessor:
         """
 
         cmd = [
-            "python",
-            "-m",
             "manim",
             "-pql",
             "--media_dir",
