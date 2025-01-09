@@ -58,9 +58,10 @@ COPY manimator ./manimator
 
 ENV PYTHONPATH=/app/manimator
 ENV $(cat .env | xargs)
-# EXPOSE 8000
 EXPOSE 7860
 ENV GRADIO_SERVER_NAME="0.0.0.0"
-
-# CMD ["python", "-m", "uvicorn", "manimator.main:app", "--host", "0.0.0.0", "--port", "8000"]
 CMD ["python", "manimator/gradio_app.py"]
+
+# For using through APIs
+# EXPOSE 8000
+# CMD ["python", "-m", "uvicorn", "manimator.main:app", "--host", "0.0.0.0", "--port", "8000"]

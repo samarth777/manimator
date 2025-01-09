@@ -1,11 +1,9 @@
 import gradio as gr
-from main import (
-    generate_animation_response,
-    process_pdf_with_gemini,
-    process_prompt_scene,
-    ManimProcessor,
-)
 import re
+
+from manimator.api.animation_generation import generate_animation_response
+from manimator.api.scene_description import process_prompt_scene, process_pdf_prompt
+from manimator.utils.schema import ManimProcessor
 
 
 def process_prompt(prompt: str):
@@ -56,7 +54,7 @@ def process_pdf(file_path: str):
             return "Error: No file uploaded"
         with open(file_path, "rb") as file_path:
             file_bytes = file_path.read()
-            scene_description = process_pdf_with_gemini(file_bytes)
+            scene_description = process_pdf_prompt(file_bytes)
             print("scene_description", scene_description)
         return scene_description
     except Exception as e:
@@ -89,7 +87,7 @@ This tool helps you create visualizations of complex concepts using natural lang
 
 ### Links
 - [Manim Documentation](https://docs.manim.community/)
-- [Project Repository](https://github.com/yourusername/manimator)
+- [Project Repository](https://github.com/HyperCluster-Tech/manimator)
 """
 
 with gr.Blocks(title="manimator") as demo:
@@ -105,7 +103,6 @@ with gr.Blocks(title="manimator") as demo:
                 )
                 text_button = gr.Button("Generate Animation from Text")
 
-            # Only show output UI elements here (not in the sample tab)
             with gr.Row():
                 video_output = gr.Video(label="Generated Animation")
             status_output = gr.Textbox(
@@ -123,7 +120,6 @@ with gr.Blocks(title="manimator") as demo:
                 file_input = gr.File(label="Upload a PDF paper", file_types=[".pdf"])
                 pdf_button = gr.Button("Generate Animation from PDF")
 
-            # Show output UI elements here as well
             with gr.Row():
                 pdf_video_output = gr.Video(label="Generated Animation")
             pdf_status_output = gr.Textbox(
@@ -154,24 +150,24 @@ with gr.Blocks(title="manimator") as demo:
             def show_sample(example):
                 if example == "What is a CNN?":
                     return (
-                        "./manimator/few_shot/CNNExplanation.mp4",
+                        "./manimator/examples/CNNExplanation.mp4",
                         "Output: Example Output 1",
                     )
                 elif example == "BitNet Paper":
-                    return "./manimator/few_shot/BitNet.mp4", "Output: Example Output 2"
+                    return "./manimator/examples/BitNet.mp4", "Output: Example Output 2"
                 elif example == "Explain Fourier Transform":
                     return (
-                        "./manimator/few_shot/FourierTransformExplanation.mp4",
+                        "./manimator/examples/FourierTransformExplanation.mp4",
                         "Output: Example Output 3",
                     )
                 elif example == "How does backpropagation work in Neural Networks?":
                     return (
-                        "./manimator/few_shot/NeuralNetworksBackPropagationExample.mp4",
+                        "./manimator/examples/NeuralNetworksBackPropagationExample.mp4",
                         "Output: Example Output 4",
                     )
                 elif example == "What is SVM?":
                     return (
-                        "./manimator/few_shot/SVMExplanation.mp4",
+                        "./manimator/examples/SVMExplanation.mp4",
                         "Output: Example Output 5",
                     )
                 return None, ""

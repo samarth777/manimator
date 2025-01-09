@@ -1,4 +1,6 @@
 media/
+**/.gradio/
+manimator/.gradio/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
