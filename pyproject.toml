@@ -5,6 +5,7 @@ description = "Transform research papers and mathematical concepts into stunning
 authors = ["Samarth P <hypercluster.tech@gmail.com>", "Vyoman Jain <hypercluster.tech@gmail.com>", "Shiva Golugula <hypercluster.tech@gmail.com>", "Sai Sathvik <hypercluster.tech@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+packages = [{include = "manimator"}]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.13"
@@ -18,6 +19,9 @@ manim = "^0.18.1"
 pypdf2 = "^3.0.1"
 gradio = "^5.9.1"
 
+[tool.poetry.scripts]
+app = "manimator.main:main"
+gradio-app = "manimator.gradio_app:main"
 
 [build-system]
 requires = ["poetry-core"]

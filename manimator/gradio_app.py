@@ -1,5 +1,8 @@
 import gradio as gr
 import re
+from importlib import resources
+from typing import Tuple, Optional, Dict
+import functools
 
 from manimator.api.animation_generation import generate_animation_response
 from manimator.api.scene_description import process_prompt_scene, process_pdf_prompt
@@ -90,6 +93,40 @@ This tool helps you create visualizations of complex concepts using natural lang
 - [Project Repository](https://github.com/HyperCluster-Tech/manimator)
 """
 
+# Constants for examples
+EXAMPLE_VIDEOS: Dict[str, str] = {
+    "What is a CNN?": "CNNExplanation.mp4",
+    "BitNet Paper": "BitNet.mp4",
+    "Explain Fourier Transform": "FourierTransformExplanation.mp4",
+    "How does backpropagation work in Neural Networks?": "NeuralNetworksBackPropagationExample.mp4",
+    "What is SVM?": "SVMExplanation.mp4",
+}
+
+
+@functools.lru_cache(maxsize=None)
+def get_example_path(filename: str) -> Optional[str]:
+    """Get absolute path to example file using importlib.resources."""
+    try:
+        with resources.path("manimator.examples", filename) as path:
+            if path.exists():
+                return str(path)
+    except Exception as e:
+        print(f"Error loading example {filename}: {e}")
+    return None
+
+
+def show_sample(example: str) -> Tuple[Optional[str], str]:
+    """Display sample animation with proper path resolution."""
+    if example not in EXAMPLE_VIDEOS:
+        return None, "Invalid example selected"
+
+    video_path = get_example_path(EXAMPLE_VIDEOS[example])
+    if not video_path:
+        return None, f"Example file {EXAMPLE_VIDEOS[example]} not found"
+
+    return video_path, f"Showing example: {example}"
+
+
 with gr.Blocks(title="manimator") as demo:
     gr.Markdown(description_md)
 
@@ -134,43 +171,12 @@ with gr.Blocks(title="manimator") as demo:
 
         with gr.TabItem("Sample Examples"):
             sample_select = gr.Dropdown(
-                choices=[
-                    "What is a CNN?",
-                    "BitNet Paper",
-                    "Explain Fourier Transform",
-                    "How does backpropagation work in Neural Networks?",
-                    "What is SVM?",
-                ],
+                choices=list(EXAMPLE_VIDEOS.keys()),
                 label="Choose an example to display",
                 value=None,
             )
             sample_video = gr.Video()
             sample_markdown = gr.Markdown()
-
-            def show_sample(example):
-                if example == "What is a CNN?":
-                    return (
-                        "./manimator/examples/CNNExplanation.mp4",
-                        "Output: Example Output 1",
-                    )
-                elif example == "BitNet Paper":
-                    return "./manimator/examples/BitNet.mp4", "Output: Example Output 2"
-                elif example == "Explain Fourier Transform":
-                    return (
-                        "./manimator/examples/FourierTransformExplanation.mp4",
-                        "Output: Example Output 3",
-                    )
-                elif example == "How does backpropagation work in Neural Networks?":
-                    return (
-                        "./manimator/examples/NeuralNetworksBackPropagationExample.mp4",
-                        "Output: Example Output 4",
-                    )
-                elif example == "What is SVM?":
-                    return (
-                        "./manimator/examples/SVMExplanation.mp4",
-                        "Output: Example Output 5",
-                    )
-                return None, ""
 
             sample_select.change(
                 fn=show_sample,
@@ -178,5 +184,11 @@ with gr.Blocks(title="manimator") as demo:
                 outputs=[sample_video, sample_markdown],
             )
 
+
+def main():
+    """Entry point for the Manimator application."""
+    demo.launch()
+
+
 if __name__ == "__main__":
-    demo.launch(share=True)
+    main()

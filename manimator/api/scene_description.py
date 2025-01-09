@@ -41,7 +41,7 @@ def process_prompt_scene(prompt: str) -> str:
         }
     )
     response = litellm.completion(
-        model=os.getenv("SCENE_GEN_MODEL"),
+        model=os.getenv("PROMPT_SCENE_GEN_MODEL"),
         messages=messages,
         num_retries=2,
     )
@@ -68,16 +68,6 @@ def process_pdf_prompt(
     """
     if not file_content:
         raise HTTPException(status_code=400, detail="Empty PDF file provided")
-
-    try:
-        if not litellm.supports_pdf_input(model=model):
-            raise HTTPException(
-                status_code=400, detail=f"Model {model} does not support PDF input"
-            )
-    except Exception as e:
-        raise HTTPException(
-            status_code=500, detail="Unable to validate model PDF support"
-        )
 
     try:
         encoded_pdf = compress_pdf(file_content)

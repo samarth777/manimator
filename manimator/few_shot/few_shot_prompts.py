@@ -1,11 +1,13 @@
 from manimator.utils.helpers import read_base64_few_shot_file
 
-FOURIER_TRANSFORM_EXAMPLE = {
-    "role": "user",
-    "content": "Fourier Transform",
-}, {
-    "role": "assistant",
-    "content": r"""### *Topic*: Fourier Transform
+FOURIER_TRANSFORM_EXAMPLE = [
+    {
+        "role": "user",
+        "content": "Fourier Transform",
+    },
+    {
+        "role": "assistant",
+        "content": r"""### *Topic*: Fourier Transform
 *Key Points*:
 - Time domain vs frequency domain
 - Decomposing signals into sine waves: \( f(t) = \sum_{n} A_n \sin(2\pi n t + \phi_n) \)
@@ -15,9 +17,10 @@ FOURIER_TRANSFORM_EXAMPLE = {
 - Animate a complex signal being decomposed into sine waves.
 - Show the Fourier Transform as a graph in the frequency domain.
 *Style*: Smooth animations with mathematical formulas and graphs.""",
-}
+    },
+]
 
-GRADIENT_DESCENT_EXAMPLE = (
+GRADIENT_DESCENT_EXAMPLE = [
     {
         "role": "user",
         "content": "Explain Gradient Descent",
@@ -35,9 +38,9 @@ GRADIENT_DESCENT_EXAMPLE = (
 - Animate the gradient descent steps moving toward the minimum.
 *Style*: 3D visualizations with step-by-step explanations.""",
     },
-)
+]
 
-BACKPROPOGATION_EXAMPLE = (
+BACKPROPOGATION_EXAMPLE = [
     {
         "role": "user",
         "content": "How does backpropogation work in neural networks?",
@@ -54,12 +57,16 @@ BACKPROPOGATION_EXAMPLE = (
 - Show the loss surface and gradient descent steps.
 *Style*: Step-by-step, with clear visualizations of gradients and updates.""",
     },
-)
+]
 
 SCENE_EXAMPLES = [
-    FOURIER_TRANSFORM_EXAMPLE,
-    GRADIENT_DESCENT_EXAMPLE,
-    BACKPROPOGATION_EXAMPLE,
+    message
+    for example in [
+        FOURIER_TRANSFORM_EXAMPLE,
+        GRADIENT_DESCENT_EXAMPLE,
+        BACKPROPOGATION_EXAMPLE,
+    ]
+    for message in example
 ]
 
 few_shot_pdf = read_base64_few_shot_file()

@@ -3,33 +3,37 @@ from PyPDF2 import PdfReader, PdfWriter
 from io import BytesIO
 import base64
 import requests
+from importlib import resources
+from pathlib import Path
+from typing import Optional
+import base64
 
 
-def read_base64_few_shot_file(filepath="./manimator/few_shot/few_shot_1.txt") -> str:
-    """Reads and returns content of a few-shot example file, converting to base64 if needed.
+def read_base64_few_shot_file(filename: str = "few_shot_1.pdf") -> str:
+    """Reads and returns content of a few-shot example file.
 
     Args:
-        filepath (str): Path to the few-shot example file. Defaults to "./manimator/few_shot/few_shot_1.txt"
+        filename: Name of the file in few_shot package
 
     Returns:
-        str: Base64 encoded content of the file
+        str: Base64 encoded content
 
     Raises:
-        FileNotFoundError: If the specified file cannot be found
+        FileNotFoundError: If file cannot be found
     """
 
     try:
-        with open(filepath, "r") as f:
-            return f.read().strip()
-    except FileNotFoundError:
-        # Fall back to generating base64 and saving it
-        with open(filepath, "rb") as pdf_file:
-            pdf_bytes = pdf_file.read()
-            base64_str = base64.b64encode(pdf_bytes).decode("utf-8")
-            # Save for future use
-            with open("./manimator/few_shot/few_shot_base64.txt", "w") as txt_file:
-                txt_file.write(base64_str)
-            return base64_str
+        with resources.path("manimator.few_shot", filename) as pdf_path:
+            if not pdf_path:
+                raise FileNotFoundError("PDF resource not found")
+
+            with open(pdf_path, "rb") as pdf_file:
+                pdf_bytes = pdf_file.read()
+                base64_str = base64.b64encode(pdf_bytes).decode("utf-8")
+                return base64_str
+    except Exception as e:
+        print(f"Error accessing resource {filename}: {e}")
+        return None
 
 
 def download_arxiv_pdf(url: str) -> bytes:
