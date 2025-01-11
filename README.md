@@ -1,32 +1,41 @@
 # manimator
 
-![manimator](https://www.hypercluster.tech/_next/image?url=%2Fmanimator.png&w=2048&q=75)
+![manimator](https://github.com/HyperCluster-Tech/manimator/blob/main/assets/manimator.png)
 [![GitHub Stars](https://img.shields.io/github/stars/HyperCluster-Tech/manimator?style=social)](https://github.com/HyperCluster-Tech/manimator/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/HyperCluster-Tech/manimator?style=social)](https://github.com/HyperCluster-Tech/manimator/network/members)
 [![GitHub Issues](https://img.shields.io/github/issues/HyperCluster-Tech/manimator)](https://github.com/HyperCluster-Tech/manimator/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/HyperCluster-Tech/manimator)](https://github.com/HyperCluster-Tech/manimator/pulls)
 [![License](https://img.shields.io/github/license/HyperCluster-Tech/manimator)](https://github.com/HyperCluster-Tech/manimator/blob/main/LICENSE)
 
-> [!IMPORTANT]
->
-> manimator is a tool to transform research papers and mathematical concepts into stunning visual explanations, powered by AI and the [manim](https://github.com/ManimCommunity/manim) engine
+### What is _manimator_?
+
+manimator is a tool to transform research papers and mathematical concepts into stunning visual explanations, powered by AI and the [manim](https://github.com/ManimCommunity/manim) engine
+
+Building on the incredible work by 3Blue1Brown and the manim community, _manimator_ turns complex research papers and user prompts into clear, animated explainer videos.
 
 ### 🔗 Try it out:
 
 - [![**On Gradio (Hugging Face):**](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-md-dark.svg)](https://huggingface.co/spaces/HyperCluster/manimator)
 - Or replace `arxiv.org` with `manimator.hypercluster.tech` in any arXiv PDF URL for instant visualizations!
 
-### What is _manimator_?
-
-Building on the incredible work by 3Blue1Brown and the manim community, _manimator_ turns complex research papers and user prompts into clear, animated explainer videos.
-
----
-
 ### 🌟 Highlights so far:
 
 - Over **1000+ uses** within 24 hours of launch and over **5000 uses** within a week
 - Featured as Hugging Face's **Space of the Week**!
 - 16th in Hugging Face's Top Trending Spaces
+
+## 🎥 Demo Videos:
+
+<div style="display: flex; justify-content: space-between; margin: 10px 0;">
+    <div style="width: 48%;">
+        <video src="https://raw.githubusercontent.com/HyperCluster-Tech/manimator/main/assets/manimator_arxiv.mp4" width="100%" controls autoplay loop allowfullscreen"></video>
+        <p align="center">ArXiv usage Walkthrough</p>
+    </div>
+    <div style="width: 48%;">
+        <video src="https://raw.githubusercontent.com/HyperCluster-Tech/manimator/main/assets/manimator_gradio.mp4" width="100%" controls autoplay loop allowfullscreen"></video>
+        <p align="center">Gradio Walkthrough</p>
+    </div>
+</div>
 
 ## Installation
 
@@ -290,6 +299,9 @@ Error responses include a detail message:
 - **Adding Audio**  
   Support for adding voiceovers and background music to create more engaging visualizations.
 
+- **Chrome Extension**
+  Based on the code graciously contributed by [Dr. Seth Dobrin](https://drsethdobrin.com/) under the [Creative Commons License](https://github.com/HyperCluster-Tech/manimator-chrome-extension/blob/main/LICENSE), we will be releasing a Chrome Extension on the Chrome Web Store soon!
+
 ## Limitations
 
 - **LLM Limitations**  
@@ -305,7 +317,7 @@ The project uses the [Manim engine](https://github.com/ManimCommunity/manim) und
 
 ## Acknowledgements
 
-We acknowledge the [Manim Community](https://www.manim.community/) and [3Blue1Brown](https://github.com/3b1b/manim) for developing and maintaining the Manim library, which serves as the foundation for this project. Project developers include: [Samarth P](https://github.com/samarth777), [Vyoman Jain](https://github.com/VyoJ), [Shiva Golugula](https://github.com/Shiva4113), and [M Sai Sathvik](https://github.com/User-LazySloth) for their efforts in developing **manimator**.  
+We acknowledge the [Manim Community](https://www.manim.community/) and [3Blue1Brown](https://github.com/3b1b/manim) for developing and maintaining the Manim library, which serves as the foundation for this project. Project developers include: [Samarth P](https://github.com/samarth777), [Vyoman Jain](https://github.com/VyoJ), [Shiva Golugula](https://github.com/Shiva4113), and [M Sai Sathvik](https://github.com/User-LazySloth) for their efforts in developing **manimator**.
 
 Models and Providers being used:
 
