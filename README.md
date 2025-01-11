@@ -332,9 +332,6 @@ Models and Providers being used:
 
 ## Contact
 
-<p align="center">
-  <a href="https://www.hypercluster.tech/">
-    <img src="https://api.star-history.com/svg?repos=HyperCluster-Tech/manimator&type=Date" alt="Star History Chart">
-  </a>
-</p>
-For any inquiries, please contact us at hypercluster.tech@gmail.com
+For any inquiries, please contact us at hypercluster.tech@gmail.com or refer to our website [hypercluster.tech](https://www.hypercluster.tech/)
+
+<img src="https://api.star-history.com/svg?repos=HyperCluster-Tech/manimator&type=Date" alt="Star History Chart">
