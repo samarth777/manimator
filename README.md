@@ -5,7 +5,6 @@
 [![GitHub Forks](https://img.shields.io/github/forks/HyperCluster-Tech/manimator?style=social)](https://github.com/HyperCluster-Tech/manimator/network/members)
 [![GitHub Issues](https://img.shields.io/github/issues/HyperCluster-Tech/manimator)](https://github.com/HyperCluster-Tech/manimator/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/HyperCluster-Tech/manimator)](https://github.com/HyperCluster-Tech/manimator/pulls)
-[![License](https://img.shields.io/github/license/HyperCluster-Tech/manimator)](https://github.com/HyperCluster-Tech/manimator/blob/main/LICENSE)
 
 > [!IMPORTANT]
 >
