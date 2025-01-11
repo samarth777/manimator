@@ -25,29 +25,33 @@ def process_prompt(prompt: str):
                     attempts += 1
                     if attempts < max_attempts:
                         continue
-                    return None, "No valid Manim code generated after multiple attempts"
+                    return (
+                        None,
+                        None,
+                        "No valid Manim code generated after multiple attempts",
+                    )
 
                 class_match = re.search(r"class (\w+)\(Scene\)", code)
                 if not class_match:
                     attempts += 1
                     if attempts < max_attempts:
                         continue
-                    return None, "No Scene class found after multiple attempts"
+                    return None, None, "No Scene class found after multiple attempts"
 
                 scene_name = class_match.group(1)
                 scene_file = processor.save_code(code, temp_dir)
                 video_path = processor.render_scene(scene_file, scene_name, temp_dir)
 
                 if not video_path:
-                    return None, "Failed to render animation"
+                    return None, None, "Failed to render animation"
 
-                return video_path, "Animation generated successfully!"
+                return video_path, code, "Animation generated successfully!"
 
         except Exception as e:
             attempts += 1
             if attempts < max_attempts:
                 continue
-            return None, f"Error after multiple attempts: {str(e)}"
+            return None, None, f"Error after multiple attempts: {str(e)}"
 
 
 def process_pdf(file_path: str):
@@ -66,18 +70,18 @@ def process_pdf(file_path: str):
 
 def interface_fn(prompt=None, pdf_file=None):
     if prompt:
-        video_path, message = process_prompt(prompt)
+        video_path, code, message = process_prompt(prompt)
         if video_path:
-            return video_path, message
-        return None, message
+            return [video_path, code, message]
+        return [None, None, message]
     elif pdf_file:
         scene_description = process_pdf(pdf_file)
         if scene_description:
-            video_path, message = process_prompt(scene_description)
+            video_path, code, message = process_prompt(scene_description)
             if video_path:
-                return video_path, message
-            return None, message
-    return None, "Please provide either a prompt or upload a PDF file"
+                return [video_path, code, message]
+            return [None, None, message]
+    return [None, None, "Please provide either a prompt or upload a PDF file"]
 
 
 description_md = """
@@ -142,14 +146,19 @@ with gr.Blocks(title="manimator") as demo:
 
             with gr.Row():
                 video_output = gr.Video(label="Generated Animation")
+
+            code_output = gr.Code(
+                label="Generated Manim Code",
+                language="python",
+                interactive=False,
+            )
             status_output = gr.Textbox(
                 label="Status", interactive=False, show_copy_button=True
             )
-
             text_button.click(
                 fn=interface_fn,
                 inputs=[text_input],
-                outputs=[video_output, status_output],
+                outputs=[video_output, code_output, status_output],
             )
 
         with gr.TabItem("📄 PDF Upload"):
@@ -159,14 +168,19 @@ with gr.Blocks(title="manimator") as demo:
 
             with gr.Row():
                 pdf_video_output = gr.Video(label="Generated Animation")
+
+            pdf_code_output = gr.Code(
+                label="Generated Manim Code",
+                language="python",
+                interactive=False,
+            )
             pdf_status_output = gr.Textbox(
                 label="Status", interactive=False, show_copy_button=True
             )
-
             pdf_button.click(
                 fn=lambda pdf: interface_fn(prompt=None, pdf_file=pdf),
                 inputs=[file_input],
-                outputs=[pdf_video_output, pdf_status_output],
+                outputs=[pdf_video_output, pdf_code_output, pdf_status_output],
             )
 
         with gr.TabItem("Sample Examples"):
