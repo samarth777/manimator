@@ -5,6 +5,8 @@
 [![GitHub Forks](https://img.shields.io/github/forks/HyperCluster-Tech/manimator?style=social)](https://github.com/HyperCluster-Tech/manimator/network/members)
 [![GitHub Issues](https://img.shields.io/github/issues/HyperCluster-Tech/manimator)](https://github.com/HyperCluster-Tech/manimator/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/HyperCluster-Tech/manimator)](https://github.com/HyperCluster-Tech/manimator/pulls)
+[![License](https://img.shields.io/github/license/HyperCluster-Tech/manimator)](https://github.com/HyperCluster-Tech/manimator/blob/main/LICENSE)
+[![Website](https://img.shields.io/badge/Website-manimator.hypercluster.tech-blue)](https://manimator.hypercluster.tech/)
 
 ### What is _manimator_?
 
@@ -14,7 +16,7 @@ Building on the incredible work by 3Blue1Brown and the manim community, _manimat
 
 ### 🔗 Try it out:
 
-- [![**On Gradio (Hugging Face):**](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-md-dark.svg)](https://huggingface.co/spaces/HyperCluster/manimator)
+- Gradio Demo: [![On Gradio (Hugging Face)](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-md-dark.svg)](https://huggingface.co/spaces/HyperCluster/manimator)
 - Or replace `arxiv.org` with `manimator.hypercluster.tech` in any arXiv PDF URL for instant visualizations!
 
 ### 🌟 Highlights so far:
@@ -25,16 +27,18 @@ Building on the incredible work by 3Blue1Brown and the manim community, _manimat
 
 ## 🎥 Demo Videos:
 
-<div style="display: flex; justify-content: space-between; margin: 10px 0;">
-    <div style="width: 48%;">
-        <video src="https://raw.githubusercontent.com/HyperCluster-Tech/manimator/main/assets/manimator_arxiv.mp4" width="100%" controls autoplay loop allowfullscreen"></video>
-        <p align="center">ArXiv usage Walkthrough</p>
-    </div>
-    <div style="width: 48%;">
-        <video src="https://raw.githubusercontent.com/HyperCluster-Tech/manimator/main/assets/manimator_gradio.mp4" width="100%" controls autoplay loop allowfullscreen"></video>
-        <p align="center">Gradio Walkthrough</p>
-    </div>
-</div>
+<table border="0" style="width: 100%; text-align: center; margin: 20px 0;">
+    <tr>
+        <td width="50%">
+            <video src="https://github.com/user-attachments/assets/5aa9ebea-06f1-489d-9a68-c8c62cdc6915" width="100%" controls autoplay loop></video>
+            <p align="center">ArXiv usage Walkthrough</p>
+        </td>
+        <td width="50%">
+            <video src="https://github.com/user-attachments/assets/820142c4-7931-4aa8-b9b7-c1d5d46b23b5" width="100%" controls autoplay loop></video>
+            <p align="center">Gradio Walkthrough</p>
+        </td>
+    </tr>
+</table>
 
 ## Installation
 
