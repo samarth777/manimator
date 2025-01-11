@@ -305,7 +305,7 @@ The project uses the [Manim engine](https://github.com/ManimCommunity/manim) und
 
 ## Acknowledgements
 
-This project builds upon the remarkable [Marker](https://github.com/VikParuchuri/marker) project created by [Vik Paruchuri](https://twitter.com/VikParuchuri). We express our gratitude for the inspiration and foundation provided by this project. Special thanks to [Surya-OCR](https://github.com/VikParuchuri/surya) and [Texify](https://github.com/VikParuchuri/texify) for the OCR models extensively used in this project, and to [Crawl4AI](https://github.com/unclecode/crawl4ai) for their contributions.
+We acknowledge the [Manim Community](https://www.manim.community/) for developing and maintaining the Manim library, which serves as the foundation for this project. We would also like to recognize [Samarth P](https://github.com/your-github-profile), [Vyoman Jain](https://github.com/VyoJ), [Shiva Golugula](https://github.com/Shiva4113), and [M Sai Sathvik](https://github.com/User-LazySloth) for their efforts in developing **manimator**.  
 
 Models and Providers being used:
 
@@ -322,4 +322,4 @@ Models and Providers being used:
     <img src="https://api.star-history.com/svg?repos=HyperCluster-Tech/manimator&type=Date" alt="Star History Chart">
   </a>
 </p>
-For any inquiries, please contact us at adithyaskolavi@gmail.com
+For any inquiries, please contact us at hypercluster.tech@gmail.com
