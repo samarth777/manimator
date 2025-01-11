@@ -1,6 +1,6 @@
 # manimator
 
-![manimator](https://raw.githubusercontent.com/HyperCluster-Tech/manimator/assets/HyperCluster.png)
+![manimator](https://www.hypercluster.tech/_next/image?url=%2Fmanimator.png&w=2048&q=75)
 [![GitHub Stars](https://img.shields.io/github/stars/HyperCluster-Tech/manimator?style=social)](https://github.com/HyperCluster-Tech/manimator/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/HyperCluster-Tech/manimator?style=social)](https://github.com/HyperCluster-Tech/manimator/network/members)
 [![GitHub Issues](https://img.shields.io/github/issues/HyperCluster-Tech/manimator)](https://github.com/HyperCluster-Tech/manimator/issues)
@@ -13,7 +13,7 @@
 
 ### 🔗 Try it out:
 
-- [![**On Gradio (Hugging Face):**](https://huggingface.co/datasets/huggingface/badges/blob/main/open-in-hf-spaces-md-dark.svg)](https://huggingface.co/spaces/HyperCluster/manimator)
+- [![**On Gradio (Hugging Face):**](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-md-dark.svg)](https://huggingface.co/spaces/HyperCluster/manimator)
 - Or replace `arxiv.org` with `manimator.hypercluster.tech` in any arXiv PDF URL for instant visualizations!
 
 ### What is _manimator_?
@@ -305,7 +305,7 @@ The project uses the [Manim engine](https://github.com/ManimCommunity/manim) und
 
 ## Acknowledgements
 
-We acknowledge the [Manim Community](https://www.manim.community/) for developing and maintaining the Manim library, which serves as the foundation for this project. We would also like to recognize [Samarth P](https://github.com/your-github-profile), [Vyoman Jain](https://github.com/VyoJ), [Shiva Golugula](https://github.com/Shiva4113), and [M Sai Sathvik](https://github.com/User-LazySloth) for their efforts in developing **manimator**.  
+We acknowledge the [Manim Community](https://www.manim.community/) and [3Blue1Brown](https://github.com/3b1b/manim) for developing and maintaining the Manim library, which serves as the foundation for this project. Project developers include: [Samarth P](https://github.com/samarth777), [Vyoman Jain](https://github.com/VyoJ), [Shiva Golugula](https://github.com/Shiva4113), and [M Sai Sathvik](https://github.com/User-LazySloth) for their efforts in developing **manimator**.  
 
 Models and Providers being used:
 
