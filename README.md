@@ -325,7 +325,7 @@ We acknowledge the [Manim Community](https://www.manim.community/) and [3Blue1Br
 Models and Providers being used:
 
 - DeepSeek-V3
-- Llama 3.3 70B via SambaNova
+- Llama 3.3 70B via Groq
 - Gemini 1.5 Flash / 2.0 Flash-experimental
 
 ---
