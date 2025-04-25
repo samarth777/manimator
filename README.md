@@ -17,20 +17,6 @@ Building on the incredible work by 3Blue1Brown and the manim community, _manimat
 - Featured as Hugging Face's **Space of the Week**!
 - 16th in Hugging Face's Top Trending Spaces
 
-## 🎥 Demo Videos:
-
-<table border="0" style="width: 100%; text-align: center; margin: 20px 0;">
-    <tr>
-        <td width="50%">
-            <video src="https://github.com/user-attachments/assets/5aa9ebea-06f1-489d-9a68-c8c62cdc6915" width="100%" controls autoplay loop></video>
-            <p align="center">ArXiv usage Walkthrough</p>
-        </td>
-        <td width="50%">
-            <video src="https://github.com/user-attachments/assets/820142c4-7931-4aa8-b9b7-c1d5d46b23b5" width="100%" controls autoplay loop></video>
-            <p align="center">Gradio Walkthrough</p>
-        </td>
-    </tr>
-</table>
 
 ## Installation
 
