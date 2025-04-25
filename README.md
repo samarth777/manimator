@@ -1,13 +1,5 @@
 # manimator
 
-![manimator](https://github.com/HyperCluster-Tech/manimator/blob/main/assets/manimator.png)
-[![GitHub Stars](https://img.shields.io/github/stars/HyperCluster-Tech/manimator?style=social)](https://github.com/HyperCluster-Tech/manimator/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/HyperCluster-Tech/manimator?style=social)](https://github.com/HyperCluster-Tech/manimator/network/members)
-[![GitHub Issues](https://img.shields.io/github/issues/HyperCluster-Tech/manimator)](https://github.com/HyperCluster-Tech/manimator/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/HyperCluster-Tech/manimator)](https://github.com/HyperCluster-Tech/manimator/pulls)
-[![License](https://img.shields.io/github/license/HyperCluster-Tech/manimator)](https://github.com/HyperCluster-Tech/manimator/blob/main/LICENSE)
-[![Website](https://img.shields.io/badge/Website-manimator.hypercluster.tech-blue)](https://manimator.hypercluster.tech/)
-
 ### What is _manimator_?
 
 manimator is a tool to transform research papers and mathematical concepts into stunning visual explanations, powered by AI and the [manim](https://github.com/ManimCommunity/manim) engine
@@ -16,8 +8,8 @@ Building on the incredible work by 3Blue1Brown and the manim community, _manimat
 
 ### 🔗 Try it out:
 
-- Gradio Demo: [![On Gradio (Hugging Face)](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-md-dark.svg)](https://huggingface.co/spaces/HyperCluster/manimator)
-- Or replace `arxiv.org` with `manimator.hypercluster.tech` in any arXiv PDF URL for instant visualizations!
+- Gradio Demo: [![On Gradio (Hugging Face)]()](https://huggingface.co/spaces/xxxxxx/manimator)
+- Or replace `arxiv.org` with `manimator.xxxxxx.tech` in any arXiv PDF URL for instant visualizations!
 
 ### 🌟 Highlights so far:
 
@@ -48,7 +40,7 @@ Building on the incredible work by 3Blue1Brown and the manim community, _manimat
 
 ```
 bash
-git clone https://github.com/HyperCluster-Tech/manimator
+git clone https://github.com/xxxxxx-xxxxxx/manimator
 cd manimator
 ```
 
@@ -302,9 +294,6 @@ Error responses include a detail message:
 - **Adding Audio**  
   Support for adding voiceovers and background music to create more engaging visualizations.
 
-- **Chrome Extension**
-  Based on the code graciously contributed by [Dr. Seth Dobrin](https://drsethdobrin.com/) under the [Creative Commons License](https://github.com/HyperCluster-Tech/manimator-chrome-extension/blob/main/LICENSE), we will be releasing a Chrome Extension on the Chrome Web Store soon!
-
 ## Limitations
 
 - **LLM Limitations**  
@@ -320,7 +309,7 @@ The project uses the [Manim engine](https://github.com/ManimCommunity/manim) und
 
 ## Acknowledgements
 
-We acknowledge the [Manim Community](https://www.manim.community/) and [3Blue1Brown](https://github.com/3b1b/manim) for developing and maintaining the Manim library, which serves as the foundation for this project. Project developers include: [Samarth P](https://github.com/samarth777), [Vyoman Jain](https://github.com/VyoJ), [Shiva Golugula](https://github.com/Shiva4113), and [M Sai Sathvik](https://github.com/User-LazySloth) for their efforts in developing **manimator**.
+We acknowledge the [Manim Community](https://www.manim.community/) and [3Blue1Brown](https://github.com/3b1b/manim) for developing and maintaining the Manim library, which serves as the foundation for this project.
 
 Models and Providers being used:
 
@@ -328,10 +317,4 @@ Models and Providers being used:
 - Llama 3.3 70B via Groq
 - Gemini 1.5 Flash / 2.0 Flash-experimental
 
----
 
-## Contact
-
-For any inquiries, please contact us at hypercluster.tech@gmail.com or refer to our website [hypercluster.tech](https://www.hypercluster.tech/)
-
-<img src="https://api.star-history.com/svg?repos=HyperCluster-Tech/manimator&type=Date" alt="Star History Chart">
