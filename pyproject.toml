@@ -2,7 +2,6 @@
 name = "manimator"
 version = "0.1.0"
 description = "Transform research papers and mathematical concepts into stunning visual explanations (using the manim engine), powered by AI"
-authors = ["Samarth P <hypercluster.tech@gmail.com>", "Vyoman Jain <hypercluster.tech@gmail.com>", "Shiva Golugula <hypercluster.tech@gmail.com>", "Sai Sathvik <hypercluster.tech@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 packages = [{include = "manimator"}]
