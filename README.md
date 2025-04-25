@@ -288,10 +288,6 @@ Error responses include a detail message:
 - **Video Generation Limitations**  
   The generated video may sometimes exhibit overlap between scenes and rendered elements, leading to visual inconsistencies. Additionally, it sometimes fails to effectively visualize complex papers in a relevant and meaningful manner.
 
-## License
-
-manimator is licensed under the MIT License. See `LICENSE` for more information.
-The project uses the [Manim engine](https://github.com/ManimCommunity/manim) under the hood, which is double-licensed under the MIT license, with copyright by 3blue1brown LLC and copyright by Manim Community Developers.
 
 ## Acknowledgements
 
