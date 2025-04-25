@@ -17,6 +17,17 @@ Building on the incredible work by 3Blue1Brown and the manim community, _manimat
 - Featured as Hugging Face's **Space of the Week**!
 - 16th in Hugging Face's Top Trending Spaces
 
+## Demo Generated Videos:
+
+
+https://github.com/user-attachments/assets/aa49f162-d951-4cf1-95f6-7f17c22d0d7b
+
+
+
+https://github.com/user-attachments/assets/ced3368d-bd41-4dbe-a80f-42a0f5d577ef
+
+
+
 
 ## Installation
 
